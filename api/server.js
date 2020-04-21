@@ -12,7 +12,7 @@ const authenticator = require("../auth/authenticator");
 const server = express();
 
 const sessionConfig = {
-  name: "",
+  name: "something",
   secret: process.env.SESSION_SECRET || "keep it secret and/or safe",
   resave: false,
   saveUninitialized: process.env.SEND_COOKIES || true,
@@ -27,6 +27,7 @@ const sessionConfig = {
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+server.use(session(sessionConfig));
 
 server.use("/api/users", authenticator, usersRouter);
 server.use("/api/auth", authRouter);
